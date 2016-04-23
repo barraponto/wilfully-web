@@ -75,10 +75,17 @@ def spouse():
     settings_form = SpouseRelationshipForm(request.form)
     return render_template('public/spouse.html', form=None, settings_form=settings_form)
 
-@blueprint.route('/user/relations/children')
+@blueprint.route('/user/relations/children', methods=['GET', 'POST'])
 def children():
     """Children Form page."""
     settings_form = ChildrenForm(request.form)
+    if settings_form.validate_on_submit():
+        # user.children_number = form.childrennumber.data
+        # user.save()
+        import pprint
+        pprint.pprint(settings_form.data)
+    else:
+        print('wtf')
     return render_template('public/children.html', form=None, settings_form=settings_form)
 
 @blueprint.route('/user/funeral/funeralbody')
